@@ -1,0 +1,18 @@
+# Carpeta de compilación
+bin/
+
+# Archivos de configuración de IDE
+.idea/
+.vscode/
+
+# Dependencias de Maven
+target/
+
+# Archivos de respaldo
+*~
+
+# Archivos de registro
+*.log
+
+# Archivos de compilación
+*.class

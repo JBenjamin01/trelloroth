@@ -1,0 +1,362 @@
+@startuml DiagramaUML
+class Music {
+    -Clip clip
+
+    +void loadMusic(String filePath)
+    +void loopMusic()
+}
+
+interface Coalition {
+    +ArrayList<Military> getMyMilitaries()
+    +String getKingdom()
+}
+
+Coalition ..|> Serializable
+
+class Player {
+    +static final String[] COLORS
+    +static ArrayList<String> freeColors
+    +static int numPlayers
+    -String nickName
+    -String kingdom
+    -String color
+    -Kingdom myKingdom
+
+    +Player(Map map, String nm, String km, String cl)
+}
+
+Player ..|> Serializable
+
+class Map {
+    +static final int MAP_SIZE
+    +static final String[] TERRITORYS
+    +static final HashMap<String, String> TERRITORYS_IMG
+}
+
+Map ..|> Serializable
+
+class Kingdom {
+    +static final int MAX_ARMYS
+    +static final String[] KINGDOMS
+    +static ArrayList<String> freeKingdoms
+    +static int numKingdoms
+    -String kingdom
+    -ArrayList<Army> armys
+    -int team
+    -int numArmys
+
+    +Kingdom(Map map, String km, String color)
+}
+
+Kingdom ..|> Coalition
+class Military {
+    +String getName()
+    +boolean getLive()
+    +int getTeam()
+    +void setRow(int r)
+    +void setColumn(int c)
+    +int getRow()
+    +int getColumnInt()
+    +String getColor()
+}
+
+class Army {
+    +static final int MAX_SOLDIERS
+    -String name
+    -String nickName
+    -String kingdom
+    -char column
+    -int armyNumber
+    -int numSoldiers
+    -int swordsmans
+    -int knights
+    -int archers
+    -int spearmans
+    -int totalLife
+    -int team
+    -int row
+    -ArrayList<Soldier> mySoldiers
+    -boolean live
+    -String color
+
+    +Army(String nam, int armyNum, int bonus, String kng, int tm, String color)
+    +void setMySoldiers(ArrayList<Soldier> al)
+    +void setTotalLife(int tl)
+    +void setArmyNumber(int armyNum)
+    +void setNumSoldiers(int numSold)
+    +void setName(String nam)
+    +void setKingdom(String kng)
+    +void setTeam(int t)
+    +void setRow(int r)
+    +void setColumn(int c)
+    +void setLive(boolean lv)
+    +void setNickName(String nn)
+    +void setColor(String cl)
+    +ArrayList<Soldier> getMySoldiers()
+    +int getTotalLife()
+    +int getArmyNumber()
+    +int getNumSoldiers()
+    +String getName()
+    +String getKingdom()
+    +int getTeam()
+    +int getRow()
+    +int getRowReal()
+    +char getColumn()
+    +int getColumnInt()
+    +boolean getLive()
+    +String getNickname()
+    +String getColor()
+    +ArrayList<Military> getMyMilitaries()
+    +boolean isAlive()
+    +void victoryBonus()
+    +void die()
+    +String dataFile()
+    +String toString()
+}
+
+Army --|> Military
+Army ..|> Coalition
+
+class Soldier {
+    +static int cantSoldiersAlive
+    -String name
+    -String nickName
+    -String attitude
+    -char column
+    -int attackLevel
+    -int defenseLevel
+    -int lifeLevel
+    -int currentLife
+    -int speed
+    -int team
+    -int teamArmy
+    -int row
+    -boolean live
+    -String image
+    -String color
+
+    +Soldier(String n, int lL, int ack, int def, int t, int ta)
+    +Soldier(String n, int lL, int ack, int def, int t, char c, int r)
+}
+
+Soldier --|> Military
+
+class Spearman {
+    -int spearLength
+
+    +Spearman(String n, int lL, int ack, int def, int t, int ta, int sl)
+    +Spearman(String n, int lL, int ack, int def, int t, char c, int r, int sl)
+    +void setSpearLength(int sl)
+}
+
+Spearman --|> Soldier
+
+class Archer {
+    -int arrows
+
+    +Archer(String n, int lL, int ack, int def, int t, int ta, int arr)
+    +Archer(String n, int lL, int ack, int def, int t, char c, int r, int arr)
+    +void setArrows(int arr)
+}
+
+Archer --|> Soldier
+
+class Swordsman {
+    -int swordLength
+
+    +Swordsman(String n, int lL, int ack, int def, int t, int ta, int sl)
+    +Swordsman(String n, int lL, int ack, int def, int t, char c, int r, int sl)
+    +void setSwordLength(int sl)
+}
+
+Swordsman --|> Soldier
+
+class SwordsmanConqueror {
+    -Hatchets hatchets
+    -int levelEvolution
+
+    +SwordsmanConqueror(String n, int lL, int ack, int def, int t, int ta, int sl)
+    +SwordsmanConqueror(String n, int lL, int ack, int def, int t, char c, int r, int sl)
+    +void setLevelEvolution(int le)
+}
+
+SwordsmanConqueror --|> Swordsman
+
+class SwordsmanRoyal {
+    -Knives knives
+    -int levelEvolution
+
+    +SwordsmanRoyal(String n, int lL, int ack, int def, int t, int ta, int sl)
+    +SwordsmanRoyal(String n, int lL, int ack, int def, int t, char c, int r, int sl)
+    +void setLevelEvolution(int le)
+    +int getLevelEvolution()
+    +void evolution()
+}
+
+SwordsmanRoyal --|> Swordsman
+
+class SwordsmanTeutonic {
+    -Javelins javelins
+    -int levelEvolution
+
+    +SwordsmanTeutonic(String n, int lL, int ack, int def, int t, int ta, int sl)
+    +SwordsmanTeutonic(String n, int lL, int ack, int def, int t, char c, int r, int sl)
+    +void setLevelEvolution(int le)
+    +int getLevelEvolution()
+    +void evolution()
+}
+
+SwordsmanTeutonic --|> Swordsman
+
+class Knight {
+    -String[] weapons
+    -String currentWeapon
+    -boolean mounting
+
+    +Knight(String n, int lL, int ack, int def, int t, int ta)
+    +Knight(String n, int lL, int ack, int def, int t, char c, int r)
+}
+
+Knight --|> Soldier
+
+class KnightFranco {
+    -Spears spears
+    -int levelEvolution
+
+    +KnightFranco(String n, int lL, int ack, int def, int t, int ta)
+    +KnightFranco(String n, int lL, int ack, int def, int t, char c, int r)
+    +void setLevelEvolution(int le)
+}
+
+KnightFranco --|> Knight
+
+class KnightMoro {
+    -Spears spears
+    -int levelEvolution
+
+    +KnightMoro(String n, int lL, int ack, int def, int t, int ta)
+    +KnightMoro(String n, int lL, int ack, int def, int t, char c, int r)
+    +String dataFile()
+    +String toString()
+}
+
+KnightMoro --|> Knight
+
+abstract class Weapons {
+    -int size
+    -int num
+
+    +void setSize(int size)
+    +int getSize()
+    +void setNum(int num)
+}
+
+class Arrows {
+    +static final int NUM_MAX
+    +static final int SIZE_MAX
+
+    +Arrows()
+    +void increaseNum()
+    +void increaseSize()
+}
+
+Arrows --|> Weapons
+
+class Hatchets {
+    +static final int NUM_MAX
+    +static final int SIZE_MAX
+
+    +Hatchets()
+    +void increaseNum()
+    +void increaseSize()
+}
+
+Hatchets --|> Weapons
+
+class Javelins {
+    +static final int NUM_MAX
+    +static final int SIZE_MAX
+
+    +Javelins()
+    +void increaseNum()
+    +void increaseSize()
+}
+
+Javelins --|> Weapons
+
+class Spears {
+    +static final int NUM_MAX
+    +static final int SIZE_MAX
+
+    +Spears()
+    +void increaseNum()
+    +void increaseSize()
+}
+
+Spears --|> Weapons
+
+class Knives {
+    +static final int NUM_MAX
+    +static final int SIZE_MAX
+
+    +Knives()
+    +void increaseNum()
+    +void increaseSize()
+}
+
+Knives --|> Weapons
+
+class ExportFile {
+    +static void fileWriter(ArrayList<Player> game, Map map)
+}
+
+class GameLog {
+    -static GameLog instance
+    -static final String filePath
+    -static final Object cerrojo
+
+    -GameLog() throws IOException
+    +static synchronized GameLog getInstance()
+}
+
+GameLog --|> PrintWriter
+
+
+class DataBase {
+    -static DataBase instance
+    -Connection connection
+    -static final String JDBC_URL
+    -static final String USER
+    -static final String PASSWORD
+
+    -DataBase()
+}
+
+class InteractionDB {
+    -static String fileName
+
+    +static void saveGame(String gameName, Object[] game)
+}
+class VideoGame {
+    -JPanel registerData
+    -JLabel registerR
+    -JTextField textRegisterName
+    -JPasswordField textRegisterPassword
+    -JButton button2
+    -JPanel login
+    -JLabel loginDate21
+    -JLabel loginDate22
+    -JButton button1
+    -JPanel window0
+    -Music music
+    -GameLog gameLog
+
+    +void mainWindow(JPanel window)
+}
+
+VideoGame --> Player : "manages"
+VideoGame --> Map : "uses"
+VideoGame --> Kingdom : "manages"
+VideoGame --> Army : "manages"
+VideoGame --> InteractionDB : "interacts with"
+@enduml
